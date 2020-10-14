@@ -1,0 +1,11 @@
+node_modules
+
+# ignore temporary render output
+./public/renders
+
+# misc
+.DS_Store
+
+# env files
+.env
+

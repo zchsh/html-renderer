@@ -3,6 +3,9 @@ node_modules
 # ignore temporary render output
 ./public/renders
 
+# glitch-specific
+.glitch-assets
+
 # misc
 .DS_Store
 

@@ -29,8 +29,6 @@ async function handler(req, res) {
   
   const { stdout, stderr } = await execPromise(`${cdCommand} && ${zipCommand}`)
 
-  console.log({ cdCommand, zipFilename, filePaths, zipCommand });
-
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
   res.json({ cdCommand, zipFilename, filePaths, zipCommand, fileUrl });

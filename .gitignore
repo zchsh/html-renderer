@@ -2,6 +2,7 @@ node_modules
 
 # ignore temporary render output
 public/renders
+tmp
 
 # glitch-specific
 .glitch-assets

@@ -1,18 +1,19 @@
 const fs = require("fs")
 const path = require("path")
-const html2png = require("../utils/html2png")
+const html2png = require("../../utils/html2png")
 const format = require("date-fns/format")
 
-const PUBLIC_DIR = path.resolve(__dirname, "../../public");
+const LIVE_URL = "https://html-renderer.glitch.me"
+const DOWNLOAD_ROUTE = "api/download-file"
+const TMP_DIR = "tmp";
+const PUBLIC_DIR = path.join(process.cwd(), TMP_DIR);
 const RENDER_DIR = "renders";
 
-async function handler(req, res) {
+async function renderHtml(req, res) {
   res.statusCode = 200;
 
   const { body } = req;
   const { html, clip } = body;
-  
-  console.log({ html, clip })
 
   //  Render the .png
   const defaultViewport = {
@@ -31,10 +32,11 @@ async function handler(req, res) {
   await pngStream.pipe(outputStream);
 
   //  Return the file location as a URL, plus request body data for reference
-  const fileUrl = path.join("/", RENDER_DIR, fileName);
+  const filePath = path.join(RENDER_DIR, fileName);
+  const fileUrl = `${LIVE_URL}/${DOWNLOAD_ROUTE}/${filePath}`
 
   res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify({ fileUrl, body, ...clip }));
+  res.end(JSON.stringify({ fileUrl, ...clip }));
 }
 
-module.exports = handler;
+module.exports = renderHtml;

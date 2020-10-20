@@ -13,7 +13,7 @@ const DatauriParser = require("datauri/parser");
 async function html2png(htmlInput, viewport, clip) {
   //  Launch a new browser with specific viewport size
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--font-render-hinting=none"],
   });
   const page = await browser.newPage();
   await page.setViewport(viewport);

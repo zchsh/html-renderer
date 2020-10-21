@@ -1,0 +1,15 @@
+node_modules
+
+# ignore temporary render output
+public/renders
+tmp
+
+# glitch-specific
+.glitch-assets
+
+# misc
+.DS_Store
+
+# env files
+.env
+

@@ -13,10 +13,29 @@ const DatauriParser = require("datauri/parser");
 async function html2png(htmlInput, viewport, clip) {
   //  Launch a new browser with specific viewport size
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--font-render-hinting=none"],
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--font-render-hinting=none"
+    ]
   });
   const page = await browser.newPage();
   await page.setViewport(viewport);
+
+  await page.setDefaultNavigationTimeout(0); 
+  
+  // Allows you to intercept a request; must appear before
+  // your first page.goto()
+  await page.setRequestInterception(true);
+
+  // Request intercept handler... will be triggered with
+  // each page.goto() statement
+  page.on("request", interceptedRequest => {
+    const { _url } = interceptedRequest
+    console.log({ _url });
+    interceptedRequest.continue();
+  });
+
   // Load the input HTML
   const htmlDataUri = getHtmlDataUri(htmlInput);
   await page.goto(htmlDataUri, { waitUntil: "networkidle0" });
@@ -24,7 +43,7 @@ async function html2png(htmlInput, viewport, clip) {
   const screenshot = await page.screenshot({
     type: "png",
     omitBackground: true,
-    clip,
+    clip
   });
   //  Return the full screenshot as a stream
   await browser.close();

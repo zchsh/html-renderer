@@ -19,7 +19,7 @@ async function renderHtml(req, res) {
   const defaultViewport = {
     width: 3000,
     height: 2000,
-    deviceScaleFactor: 2
+    deviceScaleFactor: 1
   };
   const pngStream = await html2png(html, defaultViewport, clip);
 

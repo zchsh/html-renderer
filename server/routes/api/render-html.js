@@ -13,19 +13,14 @@ async function renderHtml(req, res) {
   res.statusCode = 200;
 
   const { body } = req;
-  const { html, clip } = body;
+  const { name, html, clip, viewport } = body;
 
   //  Render the .png
-  const defaultViewport = {
-    width: 3000,
-    height: 2000,
-    deviceScaleFactor: 1
-  };
-  const pngStream = await html2png(html, defaultViewport, clip);
+  const pngStream = await html2png(html, viewport, clip);
 
   //  Write out the .png
-  const datetime = format(new Date(), "yyyy-MM-dd--HH-mm-ss");
-  const fileName = `${datetime}--test.png`;
+  const datetime = format(new Date(), "yyyy-MM-dd-HH-mm-ss");
+  const fileName = `${datetime}--${name}.png`;
   fs.mkdirSync(path.join(PUBLIC_DIR, RENDER_DIR), { recursive: true})
   const fileOut = path.join(PUBLIC_DIR, RENDER_DIR, fileName);  
   const outputStream = fs.createWriteStream(fileOut);

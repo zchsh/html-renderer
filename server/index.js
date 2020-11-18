@@ -14,7 +14,7 @@ const port = process.env.PORT
 app.use(cors())
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.json({limit: '20mb'}));
+app.use(bodyParser.json({limit: '12mb'}));
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html

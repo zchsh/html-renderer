@@ -11,7 +11,8 @@ const RENDER_DIR = "renders";
 
 async function renderHtml(req, res) {
   res.statusCode = 200;
-
+  
+  console.log("Received request...")
   const { body } = req;
   const { name, html, clip, viewport } = body;
 

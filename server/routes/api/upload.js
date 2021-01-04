@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const multer = require("multer");
 const slugify = require("slugify");
 
@@ -7,6 +8,12 @@ const PUBLIC_DIR = path.join(process.cwd(), TMP_DIR);
 
 //  Set up upload directory
 const uploadDir = path.join(PUBLIC_DIR, "uploads");
+
+try {
+  fs.mkdirSync(uploadDir, {recursive: true})
+} catch(e) {
+  console.error(e)
+}
 
 // Set up [multer](https://www.npmjs.com/package/multer) options
 var multerStorage = multer.diskStorage({

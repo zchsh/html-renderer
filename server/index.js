@@ -5,23 +5,23 @@
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const bodyParser = require("body-parser");
-const router = require("./routes/api")
-const cors = require('cors')
+const router = require("./routes/api");
+const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT
+const port = process.env.PORT;
 
-app.use(cors())
+app.use(cors());
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.json({limit: '12mb'}));
+app.use(bodyParser.json({ limit: "12mb" }));
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("./server/public"));
 
 // routes
-app.use("/api", router)
+app.use("/api", router);
 
 // send the default landing page
 app.get("/", (req, res) => res.json("Index page for html-renderer."));

@@ -1,5 +1,8 @@
 node_modules
 
+# ignore transpiled code
+template-renderer/dist
+
 # ignore temporary render output
 public/renders
 tmp

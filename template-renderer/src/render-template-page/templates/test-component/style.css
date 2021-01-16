@@ -1,0 +1,11 @@
+.g-test-component {
+  border: 1px solid red;
+  width: 200px;
+  height: 200px;
+  padding: 1rem;
+  color: blue;
+
+  & > .child-class {
+    color: green;
+  }
+}

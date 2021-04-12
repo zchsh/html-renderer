@@ -13,8 +13,8 @@ async function getPage() {
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
-      "--font-render-hinting=none"
-    ]
+      "--font-render-hinting=none",
+    ],
   });
   _page = await browser.newPage();
   return _page;
@@ -37,14 +37,14 @@ async function html2png(htmlInput, viewport, clip) {
   //  Request interception is useful for debugging
   // Allows you to intercept a request; must appear before
   // your first page.goto()
-  // await page.setRequestInterception(true);
+  await page.setRequestInterception(true);
   // Request intercept handler... will be triggered with
   // each page.goto() statement
-  // page.on("request", interceptedRequest => {
-  //   const { _url } = interceptedRequest
-  //   console.log({ _url });
-  //   interceptedRequest.continue();
-  // });
+  page.on("request", (interceptedRequest) => {
+    const { _url } = interceptedRequest;
+    console.log({ _url });
+    interceptedRequest.continue();
+  });
 
   // Load the input HTML
   const htmlDataUri = getHtmlDataUri(htmlInput);
@@ -53,7 +53,7 @@ async function html2png(htmlInput, viewport, clip) {
   const screenshot = await page.screenshot({
     type: "png",
     omitBackground: true,
-    clip
+    clip,
   });
   //  Return the full screenshot as a stream
   const pngStream = new Readable();
